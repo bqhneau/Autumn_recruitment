@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            var obj = {
+                say: function () {
+                    var f1 = () => {
+                        console.log("1111", this);
+                    }
+                    f1();
+                },
+                pro: {
+                    getPro: () => {
+                        console.log(this);
+                    }
+                }
+            }
+            var o = obj.say;
+            // window 调用 , say 指向 window
+            // f1 箭头函数 this 由外层 say 决定 ,为 【window】
+            o();  
+
+            // obj 调用 , say 指向 obj
+            // f1 箭头函数 this 由外层 say 决定 ,为 【obj】
+            obj.say();  
+
+            // getPro 为 箭头函数 , this 由外层决定，因 外层为 obj, obj 没有单独的作用域，所以指向 【window】
+            obj.pro.getPro();
+        </script>
+    </body>
+
+</html>

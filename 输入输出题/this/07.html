@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            var myObject = {
+                foo: "bar",
+                func: function () {
+                    var self = this;
+                    console.log(this.foo);
+                    console.log(self.foo);
+                    (function () {
+                        console.log(this.foo);
+                        console.log(self.foo);
+                    }());
+                }
+            };
+
+            /*
+                【分析】
+                    1、func 是由 myObject 调用的， 所以 func 内部指向  myObject
+                        即 self 为 myObject , this.foo = self.foo = 'bar'
+                    2、(function())() 立即执行函数
+                        该函数 由 window 调用, 内部 this 为 window, 所以 this.foo = window.foo = undefined
+                        self 为 之前 传递下来的 this , 故能找到 self.foo = 'bar'
+            */ 
+            myObject.func();
+        </script>
+    </body>
+
+</html>

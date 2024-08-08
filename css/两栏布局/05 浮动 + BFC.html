@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father{
+            width: 100vw;
+            height: 200px;
+        }
+        .left{
+            width: 200px;
+            height: 100%;
+            background-color: aqua;
+            float: left;
+        }
+        .right{
+            height: 100%;
+            background-color: blue;
+            /* 触发 BFC */
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="left">左侧固定</div>
+        <div class="right">右侧自适应</div>
+    </div>
+</body>
+</html>

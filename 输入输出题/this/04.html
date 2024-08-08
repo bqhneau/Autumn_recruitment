@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            /*
+                本题考查 new 的 本质
+                    1、new 的 本质 返回一个 【继承构造函数所有属性】 的 【对象】
+                    2、为了初始化新对象上的属性，这其中关键的一步： 将构造函数的 this 指向 新对象
+            */ 
+            var obj = {
+                name: 'cuggz',
+                fun: function () {
+                    console.log(this.name);
+                }
+            }
+            // obj 调用的 , 指向 obj , 所以 this.name 为 cuggz
+            obj.fun()    
+
+            // 调用 new 的过程中 改变了 fun 的 this指向 为 空对象
+            // 所以找不到 a , 最终为 undefined
+            new obj.fun() 
+        </script>
+    </body>
+
+</html>

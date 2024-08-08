@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            父盒子设置 table
+            两个子盒子设置 table-cell
+        */
+        .father {
+            display: table;
+            width: 100vw;
+            height: 200px;
+        }
+
+        .left {
+            display: table-cell;
+            width: 200px;
+            height: 100%;
+            background-color: aqua;
+        }
+
+        .right {
+            display: table-cell;
+            height: 100%;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="left">左侧固定</div>
+        <div class="right">右侧自适应</div>
+    </div>
+</body>
+
+</html>

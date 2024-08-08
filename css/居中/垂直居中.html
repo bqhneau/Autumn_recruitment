@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1、文本元素的垂直对齐 --> 
+    <!-- 该做法只适用于文本、行内块元素、行内元素的垂直居中，块元素的垂直居中不适用 -->
+    <p style="height: 100px; line-height: 100px;background-color: aqua;">这是一段文字</p>
+
+    <!-- 2、万能的flex -->
+    <div style="width: 200px;height: 200px;background-color: aquamarine; display: flex;justify-content: center;flex-direction: column;">
+        <div style="width: 50px;height: 50px;background-color: blueviolet;"></div>
+    </div>
+
+    <!-- 3、盒子中 使用position和transform -->
+    <div style="width: 200px;height: 200px;background-color: rgb(211, 151, 21);position: relative;">
+        <div style="width: 100px;height: 100px;background-color: aqua;position: absolute;top: 50%;transform:translateY(-50%) ;"></div>
+    </div>
+
+</body>
+</html>

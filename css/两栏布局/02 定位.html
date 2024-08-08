@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            子绝父相
+                左侧正常设置宽高
+                右侧不设置宽 靠 left right 控制宽
+        */
+        .father{
+            position: relative;
+            width: 100%;
+            height: 200px;
+        }
+        .left{
+            position: absolute;
+            width: 200px;
+            height: 100%;
+            left: 0;
+            background-color: aqua;
+        }
+        .right{
+            position: absolute;
+            height: 100%;
+            left: 200px;
+            right: 0;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="left">左侧固定</div>
+        <div class="right">右侧自适应</div>
+    </div>
+</body>
+</html>

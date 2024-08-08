@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            左右盒子设置浮动 和 宽度
+            中间盒子 设置 左右magin
+            中间盒子要靠后
+        */
+        .father{
+            height: 200px;
+        }
+        .left{
+            width: 100px;
+            height: 100%;
+            float: left;
+            background-color: aqua;
+        }
+        .main{
+            height: 100%;
+            margin-left: 100px;
+            margin-right: 100px;
+            background-color: blue;
+        }
+        .right{
+            width: 100px;
+            height: 100%;
+            float: right;
+            background-color: blueviolet;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="left"></div>
+        <div class="right"></div>
+        <!-- 非浮动盒子放在下面 -->
+        <div class="main"></div>
+    </div>
+</body>
+</html>

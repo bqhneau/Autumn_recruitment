@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            /*
+                根据ECMAScript262规范规定：如果第一个参数传入的对象调用者是 null 或者 undefined，
+                    call方法将把全局对象（浏览器上是window对象）作为this的值。
+                    所以，不管传入null 还是 undefined，其this都是全局对象window。
+            */ 
+            function a() {
+                console.log(this);  // window
+            }
+            a.call(null);
+        </script>
+    </body>
+
+</html>

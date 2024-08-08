@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        
+        <!-- 
+            1、promise 的状态只有遇到 resolve 和 reject 才会改变
+            2、promise 函数 是 同步任务
+            3、promise.then .catch .finaly 是微任务
+        -->
+        <script>
+            const promise1 = new Promise((resolve, reject) => {
+                console.log('promise1')
+                resolve('resolve1')  // 改变 promise1 的状态为 fulfilled
+            })
+            const promise2 = promise1.then(res => {
+                console.log(res)
+            })
+            console.log('1', promise1);  // {<fulfilled>: 'resolve1'}
+            console.log('2', promise2);  // {<pending>}
+        </script>
+    </body>
+
+</html>

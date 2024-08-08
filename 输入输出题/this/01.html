@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      /*
+          1、普通函数的this指向 就看是被谁调用的
+          2、obj.fn() => 由对象调用 指向对象
+          3、fn() => 前面什么也没写 即由 window 调用 指向 window
+      */
+      function foo() {
+        console.log(this.a);  // foo 由 window 调用, 指向 window 
+      }
+
+      function doFoo() {
+        foo();  // 由 window 调用 指向 window
+      }
+
+      var obj = {
+        a: 1,
+        doFoo: doFoo
+      };
+
+      var a = 2;
+      obj.doFoo()  // 由对象调用 指向对象
+    </script>
+  </body>
+
+</html>

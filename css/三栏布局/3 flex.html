@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            父盒子设置 flex 布局
+            左右盒子正常设置宽
+            中间盒子 flex：1
+        */
+        .father{
+            height: 200px;
+            display: flex;
+        }
+        .left{
+            width: 100px;
+            height: 100%;
+            background-color: aqua;
+        }
+        .main{
+            height: 100%;
+            background-color: blue;
+            flex: 1;
+        }
+        .right{
+            width: 100px;
+            height: 100%;
+            background-color: blueviolet;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="left"></div>
+        <div class="main"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

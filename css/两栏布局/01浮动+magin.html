@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            浮动 + magin
+            左测开启浮动
+            右测 magin-left 控制宽
+        */
+        .left{
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+            float: left;
+        }
+        .right{
+            margin-left: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="left">左侧固定</div>
+        <div class="right">右侧自适应</div>
+    </div>
+</body>
+</html>

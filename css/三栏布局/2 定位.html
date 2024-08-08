@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            子绝父相
+            左右盒子正常设置宽
+            中间盒子靠 left right 定宽
+        */
+        .father{
+            height: 200px;
+            position: relative;
+        }
+        .left{
+            width: 100px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            background-color: aqua;
+        }
+        .main{
+            height: 100%;
+            position: absolute;
+            left: 100px;
+            right: 100px;
+            background-color: blue;
+        }
+        .right{
+            width: 100px;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            background-color: blueviolet;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="main"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            /*
+                本题主要考察 箭头函数 的 this
+                    1、箭头函数的 this 在 声明时就确定了 , 且不用调用者决定
+                    2、箭头函数的this 不可由 call apply 等方法 改变
+            */ 
+            var a = 10
+            var obj = {
+                a: 20,
+                // say 在 对象中 由于对象不构成单独的作用域 所以指向 window
+                say: () => {
+                    console.log(this.a)  // 看 say 所在的上下文
+                }
+            }
+            obj.say()  // say 是 箭头函数 不由 obj 决定  
+
+            var anotherObj = { a: 30 }
+            obj.say.apply(anotherObj) // 箭头函数的this 不可由 call apply 等方法 改变
+        </script>
+    </body>
+
+</html>

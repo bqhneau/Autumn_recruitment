@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1、文本元素居中 text-align: center; -->
+    <!-- 对文本、行内元素、行内块元素生效，对块元素却是无效的 -->
+    <p style="text-align: center;">这是一段文字</p>
+
+    <!-- 2、盒子中水平居中 margin: 0 auto;-->
+    <div style="width: 200px;height: 200px;background-color: blue;">
+        <div style="width: 100px;height: 100px;margin: 0 auto;background-color: aqua;"></div>
+    </div>
+    <!-- 3、盒子中 使用position和transform -->
+    <div style="width: 200px;height: 200px;background-color: rgb(211, 151, 21);position: relative;">
+        <div style="width: 100px;height: 100px;background-color: aqua;position: absolute;left: 50%;transform:translateX(-50%) ;"></div>
+    </div>
+</body>
+</html>
