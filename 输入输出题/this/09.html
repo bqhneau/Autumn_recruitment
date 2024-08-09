@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            var length = 10;
+            function fn() {
+                console.log(this.length);
+            }
+
+            var obj = {
+                length: 5,
+                method: function (fn) {
+                    fn(); // 全局调用 10
+                    arguments[0]();  // arguments 调用 2
+                }
+            };
+
+            obj.method(fn, 1);
+        </script>
+    </body>
+
+</html>

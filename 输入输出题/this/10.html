@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            var a = 1;
+            function printA() {
+                console.log(this.a);
+            }
+            var obj = {
+                a: 2,
+                foo: printA,
+                bar: function () {
+                    printA();
+                }
+            }
+
+            obj.foo();  // obj 调用的 2
+            obj.bar();  // obj 调用的 bar ; 但 printA 是全局调用的 1
+            var foo = obj.foo;
+            foo(); // 全局调用 1
+        </script>
+    </body>
+
+</html>

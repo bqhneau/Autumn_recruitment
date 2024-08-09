@@ -13,21 +13,27 @@
             var obj = {
                 number: 3,
                 db1: (function () {
-                    console.log(this);
+                    console.log(this);  // window window【立即执行函数 全局调用】
                     this.number *= 4;
                     return function () {
-                        console.log(this);
+                        console.log(this); // window obj
                         this.number *= 5;
                     }
                 })()
             }
             var db1 = obj.db1;
 
-            // 
+            // 全局调用 改变的是全局的 number
+            // this为 window 
+            // 2*4 = 8 ; 5*8 = 40
             db1();
+
+            // 对象调用 只改变 obj.number
+            // this 为 obj
+            // 3*4
             obj.db1();
-            console.log(obj.number);     // 15
-            console.log(window.number);  // 40
+            console.log(obj.number);     //  3  15 15
+            console.log(window.number);  // 40   8 40
         </script>
     </body>
 

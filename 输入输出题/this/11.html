@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            var x = 3;
+            var y = 4;
+            var obj = {
+                x: 1,
+                y: 6,
+                getX: function () {
+                    var x = 5;
+                    return function () {
+                        return this.x;
+                    }();
+                },
+                getY: function () {
+                    var y = 7;
+                    return this.y;
+                }
+            }
+            console.log(obj.getX()) // 匿名函数 指向 window 3
+            console.log(obj.getY()) // obj 调用 指向 obj 6
+        </script>
+    </body>
+
+</html>
