@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>then_异步和多次调用</title>
+</head>
+<body>
+    <h3>then_异步和多次调用</h3>
+    <!-- 
+        支持异步和多次调用
+            1、当状态没有改变时, 将then传入的所有回调存起来【对象数组的形式】
+            2、依次调用成功/失败回调
+    -->
+    <script>
+        const PENDING = 'pending';
+        const FULFILLED = 'fulfilled';
+        const REJECTED = 'rejected'
+        class myPromise{
+            // 为 promise 添加属性
+            state = PENDING;
+            reason = undefined;
+            // 私有属性 用来存放异步未执行的回调
+            #handlers = []; // [{},{}...]
+
+            constructor(callback){
+                // 成功回调
+                const resolve = (res) => {
+                    // 状态一旦改变，便不可逆
+                    if(this.state == PENDING){
+                        this.state = FULFILLED;
+                        this.reason = res;
+                        // 执行异步的成功回调
+                        this.#handlers.forEach(({onFulfilled})=>{
+                            onFulfilled(this.reason)
+                        })
+                    }
+                }
+
+                // 失败回调
+                const reject = (rej) => {
+                    // 状态一旦改变，便不可逆
+                    if(this.state === PENDING){
+                        this.state = REJECTED;
+                        this.reason = rej;
+                        // 执行异步的失败回调
+                        this.#handlers.forEach(({onRejected})=>{
+                            onRejected(this.reason)
+                        })
+                    }
+                }
+
+                // 立即执行
+                callback(resolve,reject)
+            }
+
+            // 为 promise 添加方法
+
+            // onReject = ()=>{} 用默认值的方式 允许参数【可选】
+            then(onFulfilled,onRejected = ()=>{}){
+                // 判断传入参数是否为函数【根据文档编写】
+                onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : x => x;
+                onRejected = typeof onRejected == "function" ? onRejected : x => {throw x};
+
+                // 根据状态判断走什么回调
+                if(this.state == FULFILLED){
+                    onFulfilled(this.reason)
+                }else if(this.state == REJECTED){
+                    onRejected(this.reason)
+                }else if(this.state == PENDING){
+                    this.#handlers.push({onFulfilled,onRejected})
+                }
+            }
+        }
+
+
+        // 测试用
+        
+        console.log('111');
+        
+        // 异步
+        const p = new myPromise((reslove,reject) => {
+            setTimeout(()=>{
+                reslove('success')
+            },2000)
+            // reject('error')
+        })
+       
+        // 链式调用
+        p.then(
+            res=>{
+                console.log('then1', res);
+            },
+            rej=>{
+                console.log('then1', rej);
+            }
+        )
+        
+        p.then(
+            res=>{
+                console.log('then2', res);
+                
+            },
+            rej=>{
+                console.log('then2', rej);
+            }
+        )
+
+        console.log('2222');
+        
+    </script>
+</body>
+</html>

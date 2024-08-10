@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>为myPromise开启异步任务</title>
+    </head>
+
+    <body>
+        <h3>为myPromise开启异步任务</h3>
+        <script>
+            /**
+         * 异步任务-函数封装
+         *  1. 定义函数
+         *  2. 调用核心api(queueMicrotask,MutationObserver,setTimeout)
+         *  3. 使用封装函数
+         * */
+            // 1. 定义函数
+            function runAsynctask(callback) {
+                // 2. 调用核心api(queueMicrotask,MutationObserver,setTimeout)
+                if (typeof queueMicrotask === 'function') {
+                    queueMicrotask(callback)
+                } else if (typeof MutationObserver === 'function') {
+                    const obs = new MutationObserver(callback)
+                    const divNode = document.createElement('div')
+                    obs.observe(divNode, { childList: true })
+                    divNode.innerText = 'itheima666'
+                } else {
+                    setTimeout(callback, 0)
+                }
+            }
+
+
+            const PENDING = 'pending';
+            const FULFILLED = 'fulfilled';
+            const REJECTED = 'rejected'
+            class myPromise {
+                // 为 promise 添加属性
+                state = PENDING;
+                reason = undefined;
+                // 私有属性 用来存放异步未执行的回调
+                #handlers = []; // [{},{}...]
+
+                constructor(callback) {
+                    // 成功回调
+                    const resolve = (res) => {
+                        // 状态一旦改变，便不可逆
+                        if (this.state == PENDING) {
+                            this.state = FULFILLED;
+                            this.reason = res;
+                            // 执行异步的成功回调
+                            this.#handlers.forEach(({ onFulfilled }) => {
+                                onFulfilled(this.reason)
+                            })
+                        }
+                    }
+
+                    // 失败回调
+                    const reject = (rej) => {
+                        // 状态一旦改变，便不可逆
+                        if (this.state === PENDING) {
+                            this.state = REJECTED;
+                            this.reason = rej;
+                            // 执行异步的失败回调
+                            this.#handlers.forEach(({ onRejected }) => {
+                                onRejected(this.reason)
+                            })
+                        }
+                    }
+
+                    // 立即执行
+                    callback(resolve, reject)
+                }
+
+                // 为 promise 添加方法
+
+                // onReject = ()=>{} 用默认值的方式 允许参数【可选】
+                then(onFulfilled, onRejected = () => { }) {
+                    // 判断传入参数是否为函数【根据文档编写】
+                    onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : x => x;
+                    onRejected = typeof onRejected == "function" ? onRejected : x => { throw x };
+
+                    // 根据状态判断走什么回调
+                    if (this.state == FULFILLED) {
+                        runAsynctask(()=>{
+                            onFulfilled(this.reason)
+                        })
+                    } else if (this.state == REJECTED) {
+                        runAsynctask(()=>{
+                            onRejected(this.reason)
+                        })
+                    } else if (this.state == PENDING) {
+                        // 【这里需要注意】
+                        this.#handlers.push({ 
+                            onFulfilled:()=>{
+                                runAsynctask(()=>{
+                                    onFulfilled(this.reason)
+                                })
+                            }, 
+                            onRejected:()=>{
+                                runAsynctask(()=>{
+                                    onRejected(this.reason)
+                                })
+                            } 
+                        })
+                    }
+                }
+            }
+
+
+            // 测试用
+
+            console.log('111');
+
+            // 异步
+            const p = new myPromise((reslove, reject) => {
+                reject('error')
+            })
+
+            // 链式调用
+            p.then(
+                res => {
+                    console.log('then1', res);
+                },
+                rej => {
+                    console.log('then1', rej);
+                }
+            )
+
+            p.then(
+                res => {
+                    console.log('then2', res);
+
+                },
+                rej => {
+                    console.log('then2', rej);
+                }
+            )
+
+            console.log('2222');
+
+        </script>
+    </body>
+
+</html>

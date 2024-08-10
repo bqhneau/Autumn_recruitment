@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>then_成功失败回调</title>
+</head>
+<body>
+    <h3>then_成功失败回调</h3>
+    <!-- 
+        promise.then  的参数
+            1、接受一个回调
+            2、回调里两个参数, 一个成功回调(fulfilled执行), 一个失败回调(rejected执行)
+            3、立即执行
+    -->
+    <script>
+        const PENDING = 'pending';
+        const FULFILLED = 'fulfilled';
+        const REJECTED = 'rejected'
+        class myPromise{
+            // 为 promise 添加属性
+            state = PENDING;
+            reason = undefined;
+
+            constructor(callback){
+                // 成功回调
+                const resolve = (res) => {
+                    // 状态一旦改变，便不可逆
+                    if(this.state == PENDING){
+                        this.state = FULFILLED;
+                        this.reason = res
+                    }
+                }
+
+                // 失败回调
+                const reject = (rej) => {
+                    // 状态一旦改变，便不可逆
+                    if(this.state === PENDING){
+                        this.state = REJECTED;
+                        this.reason = rej;
+                    }
+                }
+
+                // 立即执行
+                callback(resolve,reject)
+            }
+
+            // 为 promise 添加方法
+
+            // onReject = ()=>{} 用默认值的方式 允许参数【可选】
+            then(onFulfilled,onReject = ()=>{}){
+                // 判断传入参数是否为函数【根据文档编写】
+                onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : x => x;
+                onReject = typeof onReject == "function" ? onReject : x => {throw x};
+
+                // 根据状态判断走什么回调
+                if(this.state == FULFILLED){
+                    onFulfilled(this.reason)
+                }else{
+                    onReject(this.reason)
+                }
+            }
+        }
+
+
+        // 测试用
+        const p = new myPromise((reslove,reject) => {
+            // reslove('success');
+            reject('error');
+        })
+       
+        p.then(
+            res=>{
+                console.log('成功回调', res);
+            },
+            rej=>{
+                console.log('失败回调', rej);
+            }
+        )
+    </script>
+</body>
+</html>

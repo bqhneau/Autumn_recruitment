@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise架子</title>
+</head>
+<body>
+    <h3>Promise 构造函数</h3>
+    <!-- 
+        promise 参数
+            1、 promise 接受一个回调作为参数
+            2、 promise 接收的回调内有俩参数,resolve 和 reject,分别为成功回调和失败回调
+            3、 promise 接收参数会立即执行
+    -->
+    <script>
+        class myPromise{
+            constructor(callback){
+                const resolve = (res) => {
+                    console.log('resolve',res);
+                }
+
+                const reject = (rej) => {
+                    console.log('reject',rej);
+                }
+
+                callback(resolve,reject)
+            }
+        }
+
+
+        // 测试用
+        const p = new myPromise((reslove,reject) => {
+            console.log('callback执行');
+            reslove('success');
+            reject('error');
+        })
+    </script>
+</body>
+</html>
