@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>函数柯里化</h3>
+    <!-- 
+        概念：
+            1、将多个参数的函数 改写成 只接收一个参数的函数
+            2、返回接收余下参数的新函数
+     -->
+     <script>
+        function add (a,b) {
+            return a + b
+        }
+
+        // 函数柯里化
+        function addCarry (a) {
+            return function(b){
+                return a + b
+            }
+        }
+
+        console.log(add(1,2),addCarry(1)(2));
+
+     </script>
+</body>
+</html>
