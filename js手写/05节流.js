@@ -3,10 +3,10 @@ function throttle(func, delay) {
         throw Error('func必须是一个函数')
     };
     let lastTime = 0;
-    return function() {
+    return function () {
         let args = arguments;
-        var nowTime = Date.now(); 
-        if(nowTime - lastTime > delay){
+        var nowTime = Date.now();
+        if (nowTime - lastTime > delay) {
             func.apply(this, args);
             lastTime = nowTime;
         };
@@ -14,16 +14,18 @@ function throttle(func, delay) {
 };
 
 
-// 版本2
-function throttle(fn, delay){
+// 版本2【推荐】
+function throttle(fn, delay) {
     let timer = null; // 初始化定时器
     // 返回一个经过节流处理的函数
-    return function (...args){
-      if(timer) return; // 如果定时器存在，则直接返回
+    return function (...args) {
+        if (timer) return; // 如果定时器存在，则直接选择无视
         // 给定时器赋值
-       timer = setTimeout(() => {
-         fn.apply(this, args); // 修正this的指向
-         timer = null; //  函数执行完后初始化定时器
-       },delay);
+        timer = setTimeout(() => {
+            fn.apply(this, args); // 修正this的指向
+            //  函数执行完后初始化定时器
+            // 【这行是必要的：否则定时器只执行一次】
+            timer = null;
+        }, delay);
     }
- }
+}
