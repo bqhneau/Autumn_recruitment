@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            function foo(something) {
+                this.a = something
+            }
+
+            var obj1 = {
+                foo: foo
+            }
+
+            var obj2 = {}
+
+            obj1.foo(2);  // obj1 调用的 foo, foo内部this 指向 obj1, 即 obj1.a = 2
+            console.log(obj1.a); // 2
+
+            obj1.foo.call(obj2, 3);  // call 调用 , foo内部this 指向 obj2, 即 obj2.a = 3
+            console.log(obj2.a); // 3
+
+            var bar = new obj1.foo(4)  // new 【obj1.foo】调用 , 返回 bar, 将构造函数【foo】的this绑定到 bar上 , 即 bar.a = 4
+            console.log(obj1.a); // new 不影响源对象 obj1, 保持不变 2
+            console.log(bar.a); // 4
+        </script>
+    </body>
+
+</html>

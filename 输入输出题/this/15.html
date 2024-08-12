@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            function foo(something) {
+                this.a = something
+            }
+
+            var obj1 = {}
+
+            /*
+                bind 调用, foo this指向 obj1, 即 obj1.a = 2
+            */ 
+            var bar = foo.bind(obj1);
+            bar(2);
+            console.log(obj1.a);  // 2
+
+            /*
+                new 调用, foo this指向 baz, 即 baz.a = 3
+            */ 
+            var baz = new bar(3);
+            console.log(obj1.a);  // 2【保持不变】
+            console.log(baz.a);  // 3
+        </script>
+    </body>
+
+</html>
