@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <!-- 
+            本题考查【闭包】和【作用域链】
+                1、所谓闭包, 即 函数内 嵌套函数
+                2、这样的嵌套就形成了作用域链
+                3、此时访问变量,应由内层 => 外层 寻找
+        -->
+        <script>
+            function a() {
+                var temp = 10;
+                function b() {
+                    console.log(temp); // 
+                }
+                b();
+            }
+            // 这段代码形成了闭包【函数之间形成嵌套关系】, b 执行时 可以访问 a 内部的变量
+            // 即 temp = 10
+            a(); 
+
+
+
+            function a() {
+                var temp = 10;
+                b();
+            }
+            function b() {
+                console.log(temp); // 
+            }
+            // 这段代码函数间没有嵌套关系， b 执行时 无法访问 a 内部的变量
+            // 即 Uncaught ReferenceError: temp is not defined
+            a();
+        </script>
+    </body>
+
+</html>

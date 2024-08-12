@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            (function () {
+                var x = y = 1; // 等价于 y = 1;var x = y
+            })();
+            var z;
+
+            console.log(y); // 函数内部声明了 【y = 1】, y 可以在全局访问 => 1
+            console.log(z); // 声明了但未取值 => undefined
+            console.log(x); // 【var x = y】 局部变量无法访问  => Uncaught ReferenceError: x is not defined
+        </script>
+    </body>
+
+</html>

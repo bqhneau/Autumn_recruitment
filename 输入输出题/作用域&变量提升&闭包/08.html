@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            f = function () { return true };
+            g = function () { return false };
+            (function () {
+                if (g() && [] == ![]) {
+                    // f 可以被重新定义，即会被覆盖 return false
+                    f = function f() { return false };
+                }
+                // g 提升到顶部
+                function g() { return true };
+            })();
+            console.log(f());
+        </script>
+    </body>
+
+</html>

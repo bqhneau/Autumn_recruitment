@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <!-- 
+            本题的题点：
+                1、var 声明变量 存在 变量提升
+                2、var 可以重复声明变量
+                3、变量遮蔽：在不同的作用域中，var 声明的变量如果同名，会导致【内部变量】遮蔽【外部变量】
+        -->
+        <script>
+            var friendName = 'World';
+            (function () {
+                // var friendName 
+                // 变量提升 + 变量遮蔽 导致此时的 friendName 为 undefined
+                if (typeof friendName === 'undefined') {
+                    var friendName = 'Jack';
+                    console.log('Goodbye ' + friendName);
+                } else {
+                    console.log('Hello ' + friendName);
+                }
+            })();
+        </script>
+    </body>
+
+</html>
