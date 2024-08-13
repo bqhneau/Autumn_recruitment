@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            // a
+            function Foo() {
+                getName = function () {
+                    console.log(1);
+                }
+                return this;
+            }
+            // b
+            Foo.getName = function () {
+                console.log(2);
+            }
+            // c
+            Foo.prototype.getName = function () {
+                console.log(3);
+            }
+            // d
+            var getName = function () {
+                console.log(4);
+            }
+            // e
+            function getName() {
+                console.log(5);
+            }
+
+            /*
+                寻找一个属性时,先在自身找, 找不到再去原型找
+                b 处 Foo上 有 getName 属性
+            */ 
+            Foo.getName();           // 2 
+
+            /*
+                这里主要涉及 d 和 e
+                e 涉及 变量提升 , 即 声明在 d 前
+                d 在后面， 所以覆盖
+            */ 
+            getName();               // 4
+
+            /*
+                Foo 先执行，其内部将 getName 函数覆盖，并返回 window 对象
+                Foo().getName() => window.getName(), 所以输出 1
+            */ 
+            Foo().getName();         // 1
+
+            /*
+                因为上面 getName 已被覆盖, 所以输出 1
+            */ 
+            getName();               // 1 
+
+            /*
+                new的过程中，先执行了构造函数 Foo.getName(), 然后返回了一个空对象
+                所以输出 2
+            */ 
+            new Foo.getName();       // 2
+
+            /*
+                跟上面过程类似, 先执行了构造函数 Foo(), 然后返回一个空对象实例 f, 然后执行这个实例上的 getName 方法
+                因为这个实例上 没有 getName, 所以去他的原型上找(f.__proto__ = Foo.prototype)
+                所以输出 3
+            */ 
+            new Foo().getName();     // 3
+
+            /*
+                new的过程中，先执行了构造函数 new Foo().getName(), 然后返回了一个空对象
+                所以输出3
+            */ 
+            new new Foo().getName(); // 3
+        </script>
+    </body>
+
+</html>

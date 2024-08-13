@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            var F = function () { };
+            Object.prototype.a = function () {
+                console.log('a');
+            };
+            Function.prototype.b = function () {
+                console.log('b');
+            }
+            var f = new F();
+
+            /*
+                本题需要梳理清楚各对象之间的层级关系
+                    1、f 是 F 的实例, 是 new 出来的 普通对象, 上一层为 Object
+                    2、F 是构造函数, 是函数对象, 上一层为 Function
+                    3、Function 上一层 为 Object
+                所以
+                    1、f.a() 
+                        首先在自身找(没有), 
+                        其次在原型上找(F.prototype 没有),
+                        最后在 原型的原型上找(Object.prototype), 找到为 a   
+                    2、f.b()
+                        同理 找不到 报错
+                    3、F.a()
+                        首先在自身找(没有), 
+                        其次在原型上找(Function.prototype 没有),
+                        最后在 原型的原型上找(Object.prototype), 找到为 a
+                    4、 F.b()
+                        首先在自身找(没有), 
+                        其次在原型上找(Function.prototype), 找到为 b           
+            */ 
+            f.a();
+            f.b();  // f.b is not a function
+            F.a();
+            F.b()
+        </script>
+    </body>
+
+</html>

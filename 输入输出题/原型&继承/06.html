@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            var A = { n: 4399 };
+            var B = function () { this.n = 9999 };
+            var C = function () { var n = 8888 };
+            B.prototype = A;
+            C.prototype = A;
+            var b = new B();
+            var c = new C();
+            A.n++
+
+            /*
+                先分析对象之间的层级结构
+                    1、A、B、C 三个对象
+                    2、B、C 的原型 是 A
+                    3、b、c 是 B、C new出来的实例
+
+                结果分析：
+                    1、b.n
+                        b 上面有 n
+                        所以输出为 9999
+                    2、c.n
+                        c 上面没有 n 去原型(C.prototype = A)找, A上有a
+                        所以输出为 4400
+                    【注意】
+                        var n = 8888 为干扰语句
+                        n 只是一个局部变量，不会影响到通过 new C() 创建的对象
+            */ 
+
+            console.log(b.n);
+            console.log(c.n);
+        </script>
+    </body>
+
+</html>

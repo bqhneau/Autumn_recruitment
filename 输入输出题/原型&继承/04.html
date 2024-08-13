@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            function Foo() {
+                Foo.a = function () {
+                    console.log(1);
+                }
+                this.a = function () {
+                    console.log(2)
+                }
+            }
+
+            Foo.prototype.a = function () {
+                console.log(3);
+            }
+
+            Foo.a = function () {
+                console.log(4);
+            }
+
+            /*
+                自身有这个属性 直接用
+            */ 
+            Foo.a();  
+
+            /*
+                obj 是 new 出来的普通对象
+                查找时先找自身(this.a) 发现有 直接用
+            */   
+            let obj = new Foo();
+            obj.a();
+            
+            /*
+                在上次调用时， Foo.a 被覆盖了
+                所以输出 1
+            */ 
+            Foo.a();
+        </script>
+    </body>
+
+</html>
