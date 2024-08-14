@@ -1,3 +1,8 @@
+/*
+    1、接受参数为函数
+    2、返回接受指定个数参数的函数
+*/ 
+
 function curry(func) {
     // 获取函数的参数长度
     const arity = func.length;
