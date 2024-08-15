@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <!-- 
+            正确输出
+                1
+                2
+                undefined
+                1
+        -->
+        <script>
+            function foo() {
+                console.log(this.a)
+            }
+            var a = 1
+            foo()   // 全局调用 指向 window 打印 1
+
+            let obj = {
+                a: 2,
+                foo
+            }
+            obj.foo()  // 对象调用 指向obj 打印 2
+
+            const c = new foo() // new 调用 指向 c 打印 undefined
+
+            function bar() {
+                return () => {
+                    return () => {
+                        console.log(this.a)
+                    }
+                }
+            }
+            console.log(bar()()())  // 箭头函数看上一层 指向window 打印 1
+
+        </script>
+    </body>
+
+</html>
