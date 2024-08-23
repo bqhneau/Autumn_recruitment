@@ -7,7 +7,7 @@ function convert(arr) {
                 value: arr[i] 
             })
         } else if (Array.isArray(arr[i])) {
-            // 
+            // 递归实现
             res.push({ 
                 children: convert(arr[i]) 
             })
@@ -22,4 +22,4 @@ function convert(arr) {
 const arr = [1, 2, 3, [4, 5]];
 
 let o = convert(arr);
-console.log(o);
+console.log(JSON.stringify(o));
