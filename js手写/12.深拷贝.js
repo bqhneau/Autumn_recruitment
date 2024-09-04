@@ -19,25 +19,6 @@ function deepClone(obj) {
     return clone;
 }
 
-
-function myDeepClone(obj){
-    if(typeof obj !== 'object' || obj === null){
-        return obj
-    }
-
-    const clone = Array.isArray(obj) ? [] : {};
-
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            clone[key] = myDeepClone(obj[key])
-        }
-    }
-
-    return clone
-}
-    
-
-
 // 测试
 const original = {
     name: 'ChatGPT',
