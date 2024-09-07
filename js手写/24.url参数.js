@@ -1,4 +1,4 @@
-// 方法一：使用 URLSearchParams
+// 方法一：使用 URL SearchParams
 function getQueryParamsByUSP(url) {
     // 创建 URL 对象
     const params = new URL(url).searchParams;
