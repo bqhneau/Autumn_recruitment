@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num = 2;
+        function getName() {
+            let num = 3;
+            console.log(this.num);
+        }
+
+        function func() {
+            let num = 3;
+            getName.call(this);
+        }
+
+        var obj = {
+            num: 1,
+            func: func.bind(this),  // 这里的this是 window
+            // func: function(){
+            //     console.log(this)  // 这里 this obj
+            // }
+        }
+
+        obj.func()   // 2
+    </script>
+</body>
+</html>
