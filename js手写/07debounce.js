@@ -1,20 +1,17 @@
-function debounce (func,delay){
-    // 判断是否为函数
-    if(typeof func !== 'function'){
-        return 'func必须为函数'
-    }
+// 时间戳写法
+function debounce(fn, delay) {
+    let lastTime = 0;
 
-    // 初始化timer
-    let timer = null;
+    return function (...args) {
+        const now = Date.now();
 
-    // 返回一个新函数, 用来被页面调用
-    return function(){
-        let args = arguments;
-        if(timer) clearTimeout(timer);
-        timer = setTimeout(()=>{
-            func.apply(this,args)
-        },delay)
-    }
+        if (now - lastTime >= delay) {
+            fn.apply(this, args);
+        }
+
+        // 只要再次触发，时间就重置到当前时间
+        lastTime = now;
+    };
 }
 
 /*

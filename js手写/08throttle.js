@@ -1,3 +1,4 @@
+// 时间戳写法
 function throttle(func, delay) {
     if (typeof func !== 'function') {
         throw Error('func必须是一个函数')
@@ -8,6 +9,7 @@ function throttle(func, delay) {
         var nowTime = Date.now();
         if (nowTime - lastTime > delay) {
             func.apply(this, args);
+            // 执行完一次，时间再重置为当前时间
             lastTime = nowTime;
         };
     };
