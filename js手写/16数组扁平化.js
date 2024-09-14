@@ -52,7 +52,8 @@ function myFlat(arr){
         throw Error('arr 必须是一个数组')
     }
 
-    while(arr.some(Array.isArray)) {
+    // arr.some(Array.isArray)
+    while(arr.some(item => Array.isArray(item))) {
         arr = [].concat(...arr);
     }
     return arr;
