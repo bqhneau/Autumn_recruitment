@@ -1,3 +1,6 @@
+// 仅支持判断常见数据类型 
+// 数值 布尔 字符 undefined null object
+
 function deepEqual(value1, value2) {
     if (value1 === value2) return true; // 首先检查是否严格相等
     if (typeof value1 !== 'object' || typeof value2 !== 'object' || value1 === null || value2 === null) {
