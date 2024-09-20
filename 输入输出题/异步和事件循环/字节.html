@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            const p = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(1);
+                }, 0);
+                console.log(2);
+            });
+            // 两条 promise 链 交替执行
+            p.then(res => {
+                console.log(res);
+                new Promise((resolve, reject) => {
+                    console.log(3);
+                    resolve(res);
+                    // console.log(res)
+                }).then(res => {
+                    console.log(4);
+                    // console.log(res)
+                    return res;
+                }).then(res => {
+                    console.log(5);
+                    // console.log(res)
+                    return res;
+                });
+            }).then(res => {
+                console.log(6);
+                // console.log(res)
+            });
+        </script>
+    </body>
+
+</html>
