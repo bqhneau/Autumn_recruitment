@@ -8,9 +8,10 @@ function customPromiseAll(promises) {
         let completed = 0;
 
         promises.forEach((promise, index) => {
-            // 确保每个项都是 Promise
+            // 确保每个项变成 Promise
             Promise.resolve(promise)
                 .then(value => {
+                    // 保证顺序与传入的数组一致
                     results[index] = value;
                     completed += 1;
 
